@@ -1,0 +1,23 @@
+<!-- templates/result.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Result - SecureSteg</title>
+</head>
+<body>
+  {% if encoded_image %}
+  <h3>✅ Image Encoded Successfully!</h3>
+  <img src="{{ url_for('static', filename=encoded_image) }}" alt="Encoded Image" width="300"/>
+  <br>
+  <a href="{{ url_for('static', filename=encoded_image) }}" download>📥 Download Image</a>
+  {% endif %}
+
+
+  {% if decoded_message %}
+    <h3>📝 Decoded Message:</h3>
+    <p>{{ decoded_message }}</p>
+  {% endif %}
+  <br><br>
+  <a href="/">🔙 Back to Home</a>
+</body>
+</html>
