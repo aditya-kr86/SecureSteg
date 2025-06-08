@@ -14,8 +14,19 @@ os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
 
 @app.route('/')
-def index():
+def landing():
     return render_template('index.html')
+
+
+@app.route('/text-in-image')
+def text_in_image():
+    return render_template('text-in-image.html')
+
+
+@app.route('/image-in-image')
+def image_in_image():
+    return "<h2 style='text-align:center; margin-top:100px;'>🖼️ Feature Coming Soon in Version 2!</h2>"
+
 
 
 @app.route('/encode', methods=['POST'])

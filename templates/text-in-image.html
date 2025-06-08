@@ -1,0 +1,35 @@
+<!-- templates/text-in-image.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SecureSteg - Encode</title>
+</head>
+<body>
+  <h2>🔐 Encode Message into Image</h2>
+  <form action="/encode" method="post" enctype="multipart/form-data">
+    <label>Select Image (PNG):</label><br>
+    <input type="file" name="image" required><br><br>
+
+    <label>Enter Secret Message:</label><br>
+    <textarea name="message" rows="4" cols="50" required></textarea><br><br>
+
+    <label for="key">🔑 Enter Secret Key:</label>
+    <input type="text" id="key" name="key" required>
+
+    <button type="submit">Encode</button>
+  </form>
+
+  <hr>
+
+  <h2>🕵️ Decode Message</h2>
+  <form action="/decode" method="post" enctype="multipart/form-data">
+    <label>Upload Encoded Image:</label><br>
+    <input type="file" name="encoded_image" required><br><br>
+
+    <label for="key">🔑 Enter Secret Key:</label>
+    <input type="text" id="key" name="key" required>
+
+    <button type="submit">Decode</button>
+  </form>
+</body>
+</html>
