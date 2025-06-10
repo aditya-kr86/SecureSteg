@@ -18,7 +18,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
 # Helper function to delete a file after delay
-def delete_file_later(path, delay=30):
+def delete_file_later(path, delay=60):
     def delete():
         try:
             if os.path.exists(path):
@@ -68,9 +68,9 @@ def encode_route():
     logging.info("Image encoded successfully.")
 
     # Schedule deletion of the encoded image after 5 minutes
-    delete_file_later(output_path, delay=30)
+    delete_file_later(output_path, delay=60)
     # Optionally, also delete the uploaded input image after a short delay
-    delete_file_later(image_path, delay=30)
+    delete_file_later(image_path, delay=60)
 
     return render_template('result.html', encoded_image=output_filename)
 
@@ -85,7 +85,7 @@ def decode():
     decoded_encrypted = decode_lsb(input_path)
     message = xor_decrypt(decoded_encrypted, key)
     logging.info("Image Decoded successfully.")
-    delete_file_later(input_path, delay=30)
+    delete_file_later(input_path, delay=60)
     return render_template('result.html', decoded_message=message)
 
 
