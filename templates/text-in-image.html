@@ -1,35 +1,99 @@
-<!-- templates/text-in-image.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>SecureSteg - Encode</title>
+  <meta charset="UTF-8">
+  <title>SecureSteg | Text in Image</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      color: #fff;
+      padding: 40px 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .main-box {
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 40px;
+      border-radius: 15px;
+      max-width: 800px;
+      margin: auto;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    }
+    label {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    .form-control, .form-control-file {
+      margin-bottom: 15px;
+    }
+    .btn-custom {
+      width: 100%;
+      margin-top: 10px;
+    }
+    hr {
+      border-top: 2px solid #ccc;
+    }
+  </style>
 </head>
 <body>
-  <h2>🔐 Encode Message into Image</h2>
-  <form action="/encode" method="post" enctype="multipart/form-data">
-    <label>Select Image (PNG):</label><br>
-    <input type="file" name="image" required><br><br>
+<div class="container mt-3">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+  {% endwith %}
+</div>
 
-    <label>Enter Secret Message:</label><br>
-    <textarea name="message" rows="4" cols="50" required></textarea><br><br>
+  <div class="container">
+    <div class="main-box">
+      <h2 class="text-center mb-4"><i class="bi bi-lock-fill"></i> Encode Message into Image</h2>
 
-    <label for="key">🔑 Enter Secret Key:</label>
-    <input type="text" id="key" name="key" required>
+      <form action="/encode" method="post" enctype="multipart/form-data">
+        <label for="image">🖼️ Select Image (PNG):</label>
+        <input type="file" class="form-control" id="image" name="image" accept=".png" required>
 
-    <button type="submit">Encode</button>
-  </form>
+        <label for="message">✉️ Enter Secret Message:</label>
+        <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
 
-  <hr>
+        <label for="key">🔑 Enter Secret Key:</label>
+        <input type="text" class="form-control" id="key" name="key" required>
 
-  <h2>🕵️ Decode Message</h2>
-  <form action="/decode" method="post" enctype="multipart/form-data">
-    <label>Upload Encoded Image:</label><br>
-    <input type="file" name="encoded_image" required><br><br>
+        <button type="submit" class="btn btn-success btn-lg btn-custom">
+          <i class="bi bi-file-lock2-fill"></i> Encode
+        </button>
+      </form>
 
-    <label for="key">🔑 Enter Secret Key:</label>
-    <input type="text" id="key" name="key" required>
+      <hr class="my-5">
 
-    <button type="submit">Decode</button>
-  </form>
+      <h2 class="text-center mb-4"><i class="bi bi-search"></i> Decode Message</h2>
+
+      <form action="/decode" method="post" enctype="multipart/form-data">
+        <label for="encoded_image">📂 Upload Encoded Image:</label>
+        <input type="file" class="form-control" id="encoded_image" name="encoded_image" accept=".png" required>
+
+        <label for="key">🔑 Enter Secret Key:</label>
+        <input type="text" class="form-control" id="key" name="key" required>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-custom">
+          <i class="bi bi-unlock-fill"></i> Decode
+        </button>
+      </form>
+
+      <div class="text-center mt-4">
+        <a href="/" class="btn btn-outline-light mt-3">
+          🔙 Back to Home
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- Bootstrap JS (for dismissible alerts) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
